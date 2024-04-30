@@ -9,6 +9,7 @@ import platform
 
 DEFAULT_FILENAME = "words.txt"
 DEFAULT_DUPLICATES = False
+DEFAULT_ASCENDING = True
 
 
 def sort_list(items, ascending=True):
@@ -25,9 +26,11 @@ def remove_duplicates_from_list(items):
 if __name__ == "__main__":
     filename = DEFAULT_FILENAME
     remove_duplicates = DEFAULT_DUPLICATES
-    if len(sys.argv) == 3:
+    
+    if len(sys.argv) == 4:
         filename = sys.argv[1]
         remove_duplicates = sys.argv[2].lower() == "yes"
+        ascending = sys.argv[3].lower() == "yes"
     else:
         print("No se proporcionaron argumentos.")
         user_choice = input("¿Desea continuar con la configuración predeterminada? (yes/no): ").lower()
@@ -50,7 +53,7 @@ if __name__ == "__main__":
             for line in file:
                 word_list.append(line.strip())
     else:
-        print(f"El fichero {filename} no existe")
+        print(f"The {filename} file does not exist")
         word_list = ["ravenclaw", "gryffindor", "slytherin", "hufflepuff"]
 
     if remove_duplicates:
