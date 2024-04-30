@@ -5,6 +5,7 @@ Organization: UNIR
 
 import os
 import sys
+import platform
 
 DEFAULT_FILENAME = "words.txt"
 DEFAULT_DUPLICATES = False
@@ -31,12 +32,21 @@ if __name__ == "__main__":
         remove_duplicates = sys.argv[2].lower() == "yes"
         ascending = sys.argv[3].lower() == "yes"
     else:
-        print("The file must be specified as the first argument")
-        print("The second argument indicates whether you want to remove duplicates")
-        sys.exit(1)
+        print("No se proporcionaron argumentos.")
+        user_choice = input("¿Desea continuar con la configuración predeterminada? (yes/no): ").lower()
+        if user_choice == "yes":
+            filename = DEFAULT_FILENAME
+            remove_duplicates = DEFAULT_DUPLICATES
+        else:
+            print("Saliendo del programa.")
+            sys.exit(0)
 
-    print(f"The words of file {filename} will be read")
-    file_path = os.path.join(".", filename)
+    print(f"Se leerán las palabras del fichero {filename}")
+    if platform.system() == "Windows":
+        script_dir = os.path.dirname(__file__)  # Get the directory of the current script
+        file_path = os.path.join(script_dir, filename)
+    else:
+        file_path = os.path.join(filename)
     if os.path.isfile(file_path):
         word_list = []
         with open(file_path, "r") as file:
@@ -49,4 +59,4 @@ if __name__ == "__main__":
     if remove_duplicates:
         word_list = remove_duplicates_from_list(word_list)
 
-    print(sort_list(word_list, ascending))
+    print(sort_list(word_list))
