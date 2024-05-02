@@ -28,6 +28,7 @@ if __name__ == "__main__":
     remove_duplicates = DEFAULT_DUPLICATES
     
     if len(sys.argv) == 4:
+        # Better use argparse for this ;)
         filename = sys.argv[1]
         remove_duplicates = sys.argv[2].lower() == "yes"
         ascending = sys.argv[3].lower() == "yes"
